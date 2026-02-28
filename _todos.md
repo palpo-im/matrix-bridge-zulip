@@ -78,36 +78,52 @@
 
 ---
 
-## Phase 4: Matrix 模块 🔴 P0
+## Phase 4: Matrix 模块 ✅
 
 ### 4.1 Matrix 客户端核心
-- [ ] 完善 matrix.rs - Matrix SDK 封装
-- [ ] 创建 matrix/client.rs - Matrix 客户端
-- [ ] 创建 matrix/appservice.rs - Appservice 集成
-- [ ] 创建 matrix/registration.rs - Registration 文件处理
+- [x] 完善 matrix.rs - Matrix SDK 封装
+- [x] 创建 matrix/event_handler.rs - 事件处理器
+- [x] 创建 matrix/ghost.rs - Ghost 用户管理
+- [x] 实现 MatrixEvent 类型定义
 
 ### 4.2 事件处理
-- [ ] 创建 matrix/event_handler.rs - 事件处理器
-  - [ ] 处理 m.room.message 事件
-  - [ ] 处理 m.room.member 事件
-  - [ ] 处理 m.reaction 事件
-  - [ ] 处理 m.room.redaction 事件
-  - [ ] 处理 m.room.avatar 事件
-  - [ ] 处理 m.room.name 事件
+- [x] 实现 MatrixEventHandler trait
+  - [x] handle_room_message
+  - [x] handle_room_member
+  - [x] handle_reaction
+  - [x] handle_room_redaction
+  - [x] handle_room_encryption
+  - [x] handle_room_name/topic/avatar
+- [x] 实现 MatrixEventProcessor
+  - [x] 事件年龄检查
+  - [x] 事件分发逻辑
 
 ### 4.3 Ghost 用户管理
-- [ ] 创建 matrix/ghost.rs - Ghost 用户管理
-  - [ ] 创建 Ghost 用户
-  - [ ] 更新 Ghost 用户资料
-  - [ ] 管理 Ghost 用户房间成员
+- [x] 创建 GhostUserManager
+  - [x] get_or_create_ghost
+  - [x] update_ghost_profile
+  - [x] ensure_ghost_in_room
+  - [x] remove_ghost_from_room
+  - [x] 用户映射缓存 (LRU Cache)
 
 ### 4.4 房间操作
-- [ ] 创建 matrix/room_ops.rs - 房间操作
-  - [ ] 创建房间
-  - [ ] 加入房间
-  - [ ] 离开房间
-  - [ ] 设置房间状态
-  - [ ] 发送状态事件
+- [x] create_room - 创建房间
+- [x] ensure_bot_joined_room - 确保 bot 在房间中
+- [x] invite_user - 邀请用户
+- [x] kick_user - 踢出用户
+- [x] leave_room - 离开房间
+- [x] get_room_members - 获取房间成员
+
+### 4.5 消息操作
+- [x] send_message - 发送消息
+- [x] send_message_with_reply - 发送回复
+- [x] send_message_edit - 编辑消息
+- [x] send_reaction - 发送反应
+- [x] redact_event - 删除/撤回消息
+
+### 4.6 其他操作
+- [x] set_room_name - 设置房间名
+- [x] set_room_topic - 设置房间主题
 
 ---
 
