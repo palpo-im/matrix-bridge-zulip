@@ -127,39 +127,46 @@
 
 ---
 
-## Phase 5: Zulip 模块 🔴 P0
+## Phase 5: Zulip 模块 ✅
 
 ### 5.1 Zulip 客户端核心
-- [ ] 完善 zulip.rs - Zulip API 客户端
-- [ ] 完善 zulip/types.rs - Zulip 类型定义
-  - [ ] Message 类型
-  - [ ] Stream 类型
-  - [ ] User 类型
-  - [ ] Event 类型
-  - [ ] Reaction 类型
-- [ ] 创建 zulip/http_client.rs - HTTP API 客户端
-  - [ ] 认证 (email + API key)
-  - [ ] 发送消息
-  - [ ] 获取消息
-  - [ ] 上传文件
-  - [ ] 获取用户列表
-  - [ ] 获取 Stream 列表
+- [x] 完善 zulip.rs - HTTP API 客户端
+- [x] 完善 zulip/types.rs - 类型定义
+  - [x] ZulipUser, ZulipStream, ZulipMessage
+  - [x] ZulipReaction, ZulipEvent
+  - [x] API 响应类型
+  - [x] 请求类型 (SendMessageRequest, RegisterQueueRequest)
 
-### 5.2 WebSocket 事件流
-- [ ] 创建 zulip/websocket.rs - WebSocket 客户端
-  - [ ] 连接事件队列
-  - [ ] 注册事件类型
-  - [ ] 接收实时事件
-  - [ ] 心跳保活
-  - [ ] 重连机制
+### 5.2 HTTP API 实现
+- [x] 认证 (Basic Auth)
+- [x] get_profile - 获取用户资料
+- [x] get_users - 获取用户列表
+- [x] get_streams - 获取 Stream 列表
+- [x] get_stream_id - 获取 Stream ID
+- [x] send_message - 发送消息 (Stream/DM)
+- [x] get_messages - 获取消息
+- [x] edit_message - 编辑消息
+- [x] delete_message - 删除消息
+- [x] add_reaction - 添加反应
+- [x] remove_reaction - 移除反应
+- [x] register_event_queue - 注册事件队列
+- [x] get_events - 获取事件
+- [x] subscribe_to_streams - 订阅 Stream
+- [x] upload_file - 上传文件
 
 ### 5.3 事件处理
-- [ ] 创建 zulip/event_handler.rs - 事件处理器
-  - [ ] 处理 message 事件
-  - [ ] 处理 reaction 事件
-  - [ ] 处理 update_message 事件
-  - [ ] 处理 delete_message 事件
-  - [ ] 处理 subscription 事件
+- [x] 创建 zulip/event_handler.rs
+- [x] ZulipEventHandler trait
+- [x] ZulipEventProcessor
+  - [x] 事件去重
+  - [x] 事件分发
+
+### 5.4 WebSocket/实时事件
+- [x] 创建 zulip/websocket.rs
+- [x] ZulipWebSocketClient (HTTP polling)
+- [x] ZulipRealTimeClient (WebSocket)
+- [x] 重连机制
+- [x] 心跳保活
 
 ---
 
