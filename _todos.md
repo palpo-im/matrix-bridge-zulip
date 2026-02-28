@@ -1,8 +1,17 @@
 # Matrix-Zulip Bridge Development Tasks
 
-基于参考项目 MatrixZulipBridge (Python) 和 matrix-bridge-discord (Rust) 的功能对比分析。
+基于 MatrixZulipBridge (Python) 和 matrix-bridge-discord (Rust) 的功能对比分析。
 
-## Phase 1: 项目基础架构 ✅
+## 优先级说明
+
+- 🔴 **P0 - 阻塞性**: 必须首先完成，其他功能依赖于此
+- 🟠 **P1 - 核心**: 核心功能，桥接基本可用
+- 🟡 **P2 - 重要**: 提升用户体验的重要功能
+- 🟢 **P3 - 增强**: 可选的增强功能
+
+---
+
+## Phase 1: 基础架构 ✅
 
 - [x] 创建 Cargo.toml 项目配置
 - [x] 创建 src/main.rs 入口文件
@@ -10,7 +19,7 @@
 - [x] 实现日志初始化 (tracing)
 - [x] 实现配置加载系统
 
-## Phase 2: 配置模块 (src/config/) ✅
+## Phase 2: 配置模块 ✅
 
 - [x] 创建 config/parser.rs - 配置解析器
 - [x] 创建 config/validator.rs - 配置验证
@@ -19,156 +28,342 @@
 - [x] 支持 Zulip API 配置
 - [x] 支持 Bridge 行为配置
 
-## Phase 3: 数据库模块 (src/db/)
+---
 
-- [ ] 创建 db/manager.rs - 数据库管理器
-- [ ] 创建 db/models.rs - 数据模型定义
-  - [ ] RoomMapping - 房间映射
-  - [ ] MessageMapping - 消息映射
-  - [ ] UserMapping - 用户映射
-  - [ ] OrganizationConfig - 组织配置
-- [ ] 创建 db/error.rs - 数据库错误类型
-- [ ] 创建 db/stores/mod.rs - 存储接口
-- [ ] 创建 db/stores/room_store.rs - 房间存储
-- [ ] 创建 db/stores/message_store.rs - 消息存储
-- [ ] 创建 db/stores/user_store.rs - 用户存储
-- [ ] 实现 PostgreSQL 支持
-- [ ] 实现 SQLite 支持
-- [ ] 实现数据库迁移
+## Phase 3: 数据库模块 ✅
 
-## Phase 4: Matrix 模块 (src/matrix/)
+### 3.1 数据库核心
+- [x] 创建 db/error.rs - 数据库错误类型
+- [x] 创建 db/manager.rs - 数据库管理器（连接池）
+- [x] 实现 PostgreSQL 连接支持
+- [ ] 实现 SQLite 连接支持
+- [ ] 实现 MySQL 连接支持
 
-- [ ] 创建 matrix.rs - Matrix Appservice 封装
-- [ ] 创建 matrix/event_handler.rs - Matrix 事件处理器
-- [ ] 创建 matrix/command_handler.rs - Matrix 命令处理
-- [ ] 实现幽灵用户 (Ghost User) 管理
-- [ ] 实现消息发送 (文本/媒体/回复/编辑)
-- [ ] 实现房间管理 (创建/加入/离开)
-- [ ] 实现用户资料同步 (显示名/头像)
-- [ ] 实现 Presence 状态同步
-- [ ] 实现 Typing 指示器
+### 3.2 数据模型
+- [x] 创建 db/models.rs - 数据模型定义
+  - [x] Organization - 组织配置
+  - [x] RoomMapping - 房间映射
+  - [x] MessageMapping - 消息映射
+  - [x] UserMapping - 用户映射
+  - [x] ProcessedEvent - 已处理事件
+  - [x] ReactionMapping - 反应映射
 
-## Phase 5: Zulip 模块 (src/zulip/)
+### 3.3 数据库迁移
+- [x] 创建 migrations/ 目录
+- [x] 创建初始迁移脚本 (PostgreSQL)
+- [ ] 实现 SQLite 迁移
+- [ ] 实现 MySQL 迁移
 
-- [ ] 创建 zulip.rs - Zulip API 客户端
-- [ ] 创建 zulip/types.rs - Zulip 类型定义
-- [ ] 创建 zulip/event_handler.rs - Zulip 事件处理
-- [ ] 创建 zulip/http_client.rs - HTTP API 客户端
-- [ ] 创建 zulip/websocket.rs - WebSocket 事件流
-- [ ] 实现 Zulip 认证 (email + API key)
-- [ ] 实现 Stream 消息发送/接收
-- [ ] 实现 Direct Message 发送/接收
-- [ ] 实现 Topic (线程) 支持
-- [ ] 实现消息反应 (Reactions)
-- [ ] 实现消息删除/编辑
-- [ ] 实现用户管理 API
-- [ ] 实现 Stream 订阅管理
+### 3.4 Store 接口
+- [x] 创建 db/stores/mod.rs - Store trait 定义
+- [x] 创建 db/stores/organization_store.rs
+- [x] 创建 db/stores/room_store.rs
+- [x] 创建 db/stores/message_store.rs
+- [x] 创建 db/stores/user_store.rs
+- [x] 创建 db/stores/event_store.rs
+- [x] 创建 db/stores/reaction_store.rs
 
-## Phase 6: Bridge 核心逻辑 (src/bridge/)
+### 3.5 PostgreSQL 实现
+- [x] 创建 db/postgres/mod.rs
+- [x] 创建 db/postgres/organization_store.rs
+- [x] 创建 db/postgres/room_store.rs
+- [x] 创建 db/postgres/user_store.rs
+- [x] 创建 db/postgres/message_store.rs
+- [x] 创建 db/postgres/event_store.rs
+- [x] 创建 db/postgres/reaction_store.rs
 
-- [ ] 创建 bridge.rs - 桥接核心
-- [ ] 创建 bridge/message_flow.rs - 消息流转
-- [ ] 创建 bridge/user_sync.rs - 用户同步
-- [ ] 创建 bridge/presence_handler.rs - Presence 处理
-- [ ] 创建 bridge/provisioning.rs - 桥接配置
-- [ ] 创建 bridge/queue.rs - 事件队列
-
-## Phase 7: 房间管理 (src/rooms/)
-
-- [ ] 创建 rooms/mod.rs - 房间模块入口
-- [ ] 创建 rooms/room.rs - 房间基类
-- [ ] 创建 rooms/control_room.rs - 控制房间
-- [ ] 创建 rooms/organization_room.rs - 组织房间
-- [ ] 创建 rooms/stream_room.rs - Stream 房间 (频道)
-- [ ] 创建 rooms/direct_room.rs - 私信房间
-- [ ] 创建 rooms/space_room.rs - Matrix Space 房间
-- [ ] 创建 rooms/personal_room.rs - 个人房间
-
-## Phase 8: 消息解析器 (src/parsers/)
-
-- [ ] 创建 parsers/mod.rs - 解析器模块
-- [ ] 创建 parsers/matrix_parser.rs - Matrix 消息解析
-- [ ] 创建 parsers/zulip_parser.rs - Zulip 消息解析
-- [ ] 创建 parsers/common.rs - 通用解析工具
-- [ ] 实现 Markdown/HTML 格式转换
-- [ ] 实现 Mention 用户转换
-- [ ] 实现媒体链接转换
-
-## Phase 9: 工具模块 (src/utils/)
-
-- [ ] 创建 utils/mod.rs - 工具模块入口
-- [ ] 创建 utils/error.rs - 错误类型定义
-- [ ] 创建 utils/formatting.rs - 格式化工具
-- [ ] 创建 utils/logging.rs - 日志配置
-
-## Phase 10: 媒体处理 (src/media.rs)
-
-- [ ] 创建 media.rs - 媒体处理模块
-- [ ] 实现 Matrix 媒体下载
-- [ ] 实现 Matrix 媒体上传
-- [ ] 实现 Zulip 附件上传
-- [ ] 实现 URL 转换
-
-## Phase 11: Web 服务 (src/web/)
-
-- [ ] 创建 web.rs - Web 服务入口
-- [ ] 创建 web/health.rs - 健康检查端点
-- [ ] 创建 web/metrics.rs - Prometheus 指标
-- [ ] 实现 Appservice HTTP 监听
-
-## Phase 12: 命令系统
-
-- [ ] 实现控制房间命令
-  - [ ] help - 帮助命令
-  - [ ] addorganization - 添加组织
-  - [ ] open - 打开组织房间
-- [ ] 实现组织房间命令
-  - [ ] site - 设置 Zulip 站点
-  - [ ] email - 设置 Bot 邮箱
-  - [ ] apikey - 设置 API Key
-  - [ ] connect - 连接组织
-  - [ ] disconnect - 断开连接
-  - [ ] subscribe - 订阅 Stream
-  - [ ] unsubscribe - 取消订阅
-  - [ ] space - 创建 Space
-  - [ ] status - 显示状态
-  - [ ] backfill - 消息回填
-  - [ ] personalroom - 创建个人房间
-
-## Phase 13: 功能完善
-
-- [ ] 实现 Matrix Puppet (Zulip 用户在 Matrix 的虚拟用户)
-- [ ] 实现 Zulip Puppet (Matrix 用户在 Zulip 的虚拟用户)
-- [ ] 实现消息回填 (Backfill)
-- [ ] 实现 Topic <-> Thread 映射
-- [ ] 实现反应 (Reactions) 双向同步
-- [ ] 实现消息编辑同步
-- [ ] 实现消息删除同步
-- [ ] 实现回复 (Reply) 同步
-- [ ] 实现成员同步 (lazy/half/full 模式)
-- [ ] 实现权限同步
-- [ ] 实现封禁同步 (relay_moderation)
-
-## Phase 14: Docker 和部署
-
-- [ ] 创建 Dockerfile
-- [ ] 创建 docker-compose.yml
-- [ ] 创建示例配置文件
-- [ ] 创建 README.md
-
-## Phase 15: 测试
-
-- [ ] 单元测试
-- [ ] 集成测试
-- [ ] 配置验证测试
+### 3.6 其他实现
+- [ ] 创建 db/sqlite/ - SQLite 实现
+- [ ] 创建 db/mysql/ - MySQL 实现
 
 ---
 
-## 优先级说明
+## Phase 4: Matrix 模块 🔴 P0
 
-1. **Phase 1-3**: 必须首先完成，建立项目基础
-2. **Phase 4-5**: 核心功能，Matrix 和 Zulip 客户端
-3. **Phase 6-7**: 桥接逻辑和房间管理
-4. **Phase 8-11**: 辅助功能模块
-5. **Phase 12-13**: 高级功能
-6. **Phase 14-15**: 部署和测试
+### 4.1 Matrix 客户端核心
+- [ ] 完善 matrix.rs - Matrix SDK 封装
+- [ ] 创建 matrix/client.rs - Matrix 客户端
+- [ ] 创建 matrix/appservice.rs - Appservice 集成
+- [ ] 创建 matrix/registration.rs - Registration 文件处理
+
+### 4.2 事件处理
+- [ ] 创建 matrix/event_handler.rs - 事件处理器
+  - [ ] 处理 m.room.message 事件
+  - [ ] 处理 m.room.member 事件
+  - [ ] 处理 m.reaction 事件
+  - [ ] 处理 m.room.redaction 事件
+  - [ ] 处理 m.room.avatar 事件
+  - [ ] 处理 m.room.name 事件
+
+### 4.3 Ghost 用户管理
+- [ ] 创建 matrix/ghost.rs - Ghost 用户管理
+  - [ ] 创建 Ghost 用户
+  - [ ] 更新 Ghost 用户资料
+  - [ ] 管理 Ghost 用户房间成员
+
+### 4.4 房间操作
+- [ ] 创建 matrix/room_ops.rs - 房间操作
+  - [ ] 创建房间
+  - [ ] 加入房间
+  - [ ] 离开房间
+  - [ ] 设置房间状态
+  - [ ] 发送状态事件
+
+---
+
+## Phase 5: Zulip 模块 🔴 P0
+
+### 5.1 Zulip 客户端核心
+- [ ] 完善 zulip.rs - Zulip API 客户端
+- [ ] 完善 zulip/types.rs - Zulip 类型定义
+  - [ ] Message 类型
+  - [ ] Stream 类型
+  - [ ] User 类型
+  - [ ] Event 类型
+  - [ ] Reaction 类型
+- [ ] 创建 zulip/http_client.rs - HTTP API 客户端
+  - [ ] 认证 (email + API key)
+  - [ ] 发送消息
+  - [ ] 获取消息
+  - [ ] 上传文件
+  - [ ] 获取用户列表
+  - [ ] 获取 Stream 列表
+
+### 5.2 WebSocket 事件流
+- [ ] 创建 zulip/websocket.rs - WebSocket 客户端
+  - [ ] 连接事件队列
+  - [ ] 注册事件类型
+  - [ ] 接收实时事件
+  - [ ] 心跳保活
+  - [ ] 重连机制
+
+### 5.3 事件处理
+- [ ] 创建 zulip/event_handler.rs - 事件处理器
+  - [ ] 处理 message 事件
+  - [ ] 处理 reaction 事件
+  - [ ] 处理 update_message 事件
+  - [ ] 处理 delete_message 事件
+  - [ ] 处理 subscription 事件
+
+---
+
+## Phase 6: Bridge 核心逻辑 🟠 P1
+
+### 6.1 Bridge 核心
+- [ ] 完善 bridge.rs - 桥接核心
+  - [ ] Bridge 状态管理
+  - [ ] 启动/停止逻辑
+  - [ ] 配置重载
+
+### 6.2 消息流转
+- [ ] 创建 bridge/message_flow.rs - 消息流转
+  - [ ] Matrix -> Zulip 消息转发
+  - [ ] Zulip -> Matrix 消息转发
+  - [ ] 消息队列管理
+  - [ ] 消息重试机制
+
+### 6.3 用户同步
+- [ ] 创建 bridge/user_sync.rs - 用户同步
+  - [ ] Zulip 用户 -> Matrix Ghost
+  - [ ] Matrix 用户 -> Zulip Puppet (可选)
+  - [ ] 用户资料同步
+  - [ ] 用户映射管理
+
+### 6.4 事件队列
+- [ ] 创建 bridge/queue.rs - 事件队列
+  - [ ] 优先级队列
+  - [ ] 事件去重
+  - [ ] 背压控制
+
+---
+
+## Phase 7: 房间管理 🟠 P1
+
+### 7.1 房间基础
+- [ ] 完善 rooms/room.rs - 房间基类
+- [ ] 创建 rooms/registry.rs - 房间注册表
+
+### 7.2 房间类型
+- [ ] 创建 rooms/control_room.rs - 控制房间
+  - [ ] 初始化控制房间
+  - [ ] 处理命令
+- [ ] 创建 rooms/organization_room.rs - 组织房间
+  - [ ] 管理组织配置
+  - [ ] 管理订阅的 Stream
+- [ ] 创建 rooms/stream_room.rs - Stream 房间
+  - [ ] Stream <-> Matrix 房间映射
+  - [ ] Topic <-> Thread 映射
+- [ ] 创建 rooms/direct_room.rs - 私信房间
+  - [ ] DM 双向转发
+- [ ] 创建 rooms/space_room.rs - Space 房间
+  - [ ] 组织所有 Stream 房间
+
+---
+
+## Phase 8: 命令系统 🟠 P1
+
+### 8.1 命令框架
+- [ ] 创建 command/mod.rs - 命令模块
+- [ ] 创建 command/parser.rs - 命令解析器
+- [ ] 创建 command/executor.rs - 命令执行器
+
+### 8.2 控制房间命令
+- [ ] help - 显示帮助
+- [ ] addorganization - 添加组织
+- [ ] open - 打开组织房间
+
+### 8.3 组织房间命令
+- [ ] site - 设置 Zulip 站点 URL
+- [ ] email - 设置 Bot 邮箱
+- [ ] apikey - 设置 API Key
+- [ ] connect - 连接到 Zulip
+- [ ] disconnect - 断开连接
+- [ ] status - 显示连接状态
+- [ ] subscribe - 订阅 Stream
+- [ ] unsubscribe - 取消订阅
+- [ ] space - 创建 Matrix Space
+- [ ] list - 列出订阅的 Stream
+- [ ] personalroom - 创建个人房间
+
+---
+
+## Phase 9: 消息解析器 🟡 P2
+
+### 9.1 解析器框架
+- [ ] 完善 parsers/matrix_parser.rs - Matrix 消息解析
+- [ ] 完善 parsers/zulip_parser.rs - Zulip 消息解析
+- [ ] 创建 parsers/html.rs - HTML 处理
+- [ ] 创建 parsers/markdown.rs - Markdown 处理
+
+### 9.2 格式转换
+- [ ] Matrix HTML -> Zulip Markdown
+- [ ] Zulip Markdown -> Matrix HTML
+- [ ] Mention 用户转换 (@user -> @user)
+- [ ] Emoji 转换 (zulip_emoji_mapping)
+- [ ] 链接转换
+
+---
+
+## Phase 10: 媒体处理 🟡 P2
+
+### 10.1 媒体下载
+- [ ] 完善 media.rs - 媒体处理模块
+- [ ] Matrix 媒体下载 (mxc:// -> file)
+- [ ] Zulip 附件下载
+
+### 10.2 媒体上传
+- [ ] Matrix 媒体上传 (file -> mxc://)
+- [ ] Zulip 附件上传
+
+### 10.3 媒体转发
+- [ ] Matrix -> Zulip 附件转发
+- [ ] Zulip -> Matrix 附件转发
+- [ ] 媒体大小限制检查
+- [ ] 媒体类型检测
+
+---
+
+## Phase 11: 高级功能 🟡 P2
+
+### 11.1 消息高级功能
+- [ ] 消息回复 (Reply) 同步
+- [ ] 消息编辑同步
+- [ ] 消息删除/Redaction 同步
+- [ ] 消息反应 (Reactions) 同步
+- [ ] Topic <-> Thread 映射
+
+### 11.2 成员同步
+- [ ] 成员同步模式 (lazy/half/full)
+- [ ] 成员加入/离开事件
+- [ ] 权限/角色同步
+
+### 11.3 其他功能
+- [ ] 消息回填 (Backfill)
+- [ ] Read Receipts
+- [ ] 封禁同步 (relay_moderation)
+
+---
+
+## Phase 12: Web 服务 🟢 P3
+
+### 12.1 HTTP 服务
+- [ ] 完善 web.rs - Web 服务
+- [ ] Appservice HTTP 监听
+- [ ] 健康检查端点 (/health)
+- [ ] 就绪端点 (/ready)
+
+### 12.2 指标和监控
+- [ ] 创建 web/metrics.rs - Prometheus 指标
+- [ ] 创建 web/status.rs - 状态端点
+
+---
+
+## Phase 13: 部署 🟢 P3
+
+### 13.1 Docker
+- [ ] 创建 Dockerfile
+- [ ] 创建 docker-compose.yml
+- [ ] 创建 .dockerignore
+
+### 13.2 配置示例
+- [ ] 创建 config.example.yaml
+- [ ] 创建 registration.example.yaml
+- [ ] 创建 README.md
+- [ ] 创建 README_CN.md
+
+### 13.3 CI/CD
+- [ ] 创建 .github/workflows/ci.yml
+- [ ] 创建 .github/workflows/release.yml
+
+---
+
+## Phase 14: 测试 🟢 P3
+
+### 14.1 单元测试
+- [ ] 配置模块测试
+- [ ] 数据库模块测试
+- [ ] 解析器测试
+- [ ] 命令测试
+
+### 14.2 集成测试
+- [ ] Matrix 客户端集成测试
+- [ ] Zulip 客户端集成测试
+- [ ] Bridge 集成测试
+
+---
+
+## 实现顺序建议
+
+### 第 1 阶段: 数据库基础 (Phase 3)
+1. 数据库错误和连接池
+2. 数据模型定义
+3. Store trait 和基础实现
+4. 数据库迁移
+
+### 第 2 阶段: Matrix 客户端 (Phase 4)
+1. Matrix 客户端基础
+2. Ghost 用户管理
+3. 事件处理器
+4. 房间操作
+
+### 第 3 阶段: Zulip 客户端 (Phase 5)
+1. HTTP 客户端和类型
+2. WebSocket 事件流
+3. 事件处理器
+
+### 第 4 阶段: Bridge 核心 (Phase 6-7)
+1. 消息流转
+2. 用户同步
+3. 房间管理
+4. 事件队列
+
+### 第 5 阶段: 用户交互 (Phase 8-10)
+1. 命令系统
+2. 消息解析器
+3. 媒体处理
+
+### 第 6 阶段: 完善和部署 (Phase 11-14)
+1. 高级功能
+2. Web 服务
+3. 部署配置
+4. 测试
