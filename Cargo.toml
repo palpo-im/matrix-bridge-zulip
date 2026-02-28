@@ -58,6 +58,7 @@ regex = "1.10"
 clap = { version = "4.5", features = ["derive", "env"] }
 pulldown-cmark = "0.12"
 html2text = "0.13"
+rand = "0.9"
 
 [dev-dependencies]
 tokio-test = "0.4"

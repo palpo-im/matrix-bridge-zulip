@@ -51,10 +51,4 @@ pub enum BridgeError {
     Other(#[from] anyhow::Error),
 }
 
-impl From<crate::db::DatabaseError> for BridgeError {
-    fn from(err: crate::db::DatabaseError) -> Self {
-        BridgeError::Database(err.to_string())
-    }
-}
-
 pub type Result<T> = std::result::Result<T, BridgeError>;
