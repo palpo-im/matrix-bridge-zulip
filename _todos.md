@@ -11,66 +11,66 @@
 
 ---
 
-## Phase 1: 基础架构 ✅
+## Phase 1: 基础架构
 
-- [x] 创建 Cargo.toml 项目配置
-- [x] 创建 src/main.rs 入口文件
-- [x] 实现 CLI 参数解析 (clap)
-- [x] 实现日志初始化 (tracing)
-- [x] 实现配置加载系统
+- [ ] 创建 Cargo.toml 项目配置
+- [ ] 创建 src/main.rs 入口文件
+- [ ] 实现 CLI 参数解析 (clap)
+- [ ] 实现日志初始化 (tracing)
+- [ ] 实现配置加载系统
 
-## Phase 2: 配置模块 ✅
+## Phase 2: 配置模块
 
-- [x] 创建 config/parser.rs - 配置解析器
-- [x] 创建 config/validator.rs - 配置验证
-- [x] 支持数据库配置 (PostgreSQL/SQLite/MySQL)
-- [x] 支持 Matrix Appservice 配置
-- [x] 支持 Zulip API 配置
-- [x] 支持 Bridge 行为配置
+- [ ] 创建 config/parser.rs - 配置解析器
+- [ ] 创建 config/validator.rs - 配置验证
+- [ ] 支持数据库配置 (PostgreSQL/SQLite/MySQL)
+- [ ] 支持 Matrix Appservice 配置
+- [ ] 支持 Zulip API 配置
+- [ ] 支持 Bridge 行为配置
 
 ---
 
-## Phase 3: 数据库模块 ✅
+## Phase 3: 数据库模块
 
 ### 3.1 数据库核心
-- [x] 创建 db/error.rs - 数据库错误类型
-- [x] 创建 db/manager.rs - 数据库管理器（连接池）
-- [x] 实现 PostgreSQL 连接支持
+- [ ] 创建 db/error.rs - 数据库错误类型
+- [ ] 创建 db/manager.rs - 数据库管理器（连接池）
+- [ ] 实现 PostgreSQL 连接支持
 - [ ] 实现 SQLite 连接支持
 - [ ] 实现 MySQL 连接支持
 
 ### 3.2 数据模型
-- [x] 创建 db/models.rs - 数据模型定义
-  - [x] Organization - 组织配置
-  - [x] RoomMapping - 房间映射
-  - [x] MessageMapping - 消息映射
-  - [x] UserMapping - 用户映射
-  - [x] ProcessedEvent - 已处理事件
-  - [x] ReactionMapping - 反应映射
+- [ ] 创建 db/models.rs - 数据模型定义
+  - [ ] Organization - 组织配置
+  - [ ] RoomMapping - 房间映射
+  - [ ] MessageMapping - 消息映射
+  - [ ] UserMapping - 用户映射
+  - [ ] ProcessedEvent - 已处理事件
+  - [ ] ReactionMapping - 反应映射
 
 ### 3.3 数据库迁移
-- [x] 创建 migrations/ 目录
-- [x] 创建初始迁移脚本 (PostgreSQL)
+- [ ] 创建 migrations/ 目录
+- [ ] 创建初始迁移脚本 (PostgreSQL)
 - [ ] 实现 SQLite 迁移
 - [ ] 实现 MySQL 迁移
 
 ### 3.4 Store 接口
-- [x] 创建 db/stores/mod.rs - Store trait 定义
-- [x] 创建 db/stores/organization_store.rs
-- [x] 创建 db/stores/room_store.rs
-- [x] 创建 db/stores/message_store.rs
-- [x] 创建 db/stores/user_store.rs
-- [x] 创建 db/stores/event_store.rs
-- [x] 创建 db/stores/reaction_store.rs
+- [ ] 创建 db/stores/mod.rs - Store trait 定义
+- [ ] 创建 db/stores/organization_store.rs
+- [ ] 创建 db/stores/room_store.rs
+- [ ] 创建 db/stores/message_store.rs
+- [ ] 创建 db/stores/user_store.rs
+- [ ] 创建 db/stores/event_store.rs
+- [ ] 创建 db/stores/reaction_store.rs
 
 ### 3.5 PostgreSQL 实现
-- [x] 创建 db/postgres/mod.rs
-- [x] 创建 db/postgres/organization_store.rs
-- [x] 创建 db/postgres/room_store.rs
-- [x] 创建 db/postgres/user_store.rs
-- [x] 创建 db/postgres/message_store.rs
-- [x] 创建 db/postgres/event_store.rs
-- [x] 创建 db/postgres/reaction_store.rs
+- [ ] 创建 db/postgres/mod.rs
+- [ ] 创建 db/postgres/organization_store.rs
+- [ ] 创建 db/postgres/room_store.rs
+- [ ] 创建 db/postgres/user_store.rs
+- [ ] 创建 db/postgres/message_store.rs
+- [ ] 创建 db/postgres/event_store.rs
+- [ ] 创建 db/postgres/reaction_store.rs
 
 ### 3.6 其他实现
 - [ ] 创建 db/sqlite/ - SQLite 实现
@@ -78,95 +78,95 @@
 
 ---
 
-## Phase 4: Matrix 模块 ✅
+## Phase 4: Matrix 模块
 
 ### 4.1 Matrix 客户端核心
-- [x] 完善 matrix.rs - Matrix SDK 封装
-- [x] 创建 matrix/event_handler.rs - 事件处理器
-- [x] 创建 matrix/ghost.rs - Ghost 用户管理
-- [x] 实现 MatrixEvent 类型定义
+- [ ] 完善 matrix.rs - Matrix SDK 封装
+- [ ] 创建 matrix/event_handler.rs - 事件处理器
+- [ ] 创建 matrix/ghost.rs - Ghost 用户管理
+- [ ] 实现 MatrixEvent 类型定义
 
 ### 4.2 事件处理
-- [x] 实现 MatrixEventHandler trait
-  - [x] handle_room_message
-  - [x] handle_room_member
-  - [x] handle_reaction
-  - [x] handle_room_redaction
-  - [x] handle_room_encryption
-  - [x] handle_room_name/topic/avatar
-- [x] 实现 MatrixEventProcessor
-  - [x] 事件年龄检查
-  - [x] 事件分发逻辑
+- [ ] 实现 MatrixEventHandler trait
+  - [ ] handle_room_message
+  - [ ] handle_room_member
+  - [ ] handle_reaction
+  - [ ] handle_room_redaction
+  - [ ] handle_room_encryption
+  - [ ] handle_room_name/topic/avatar
+- [ ] 实现 MatrixEventProcessor
+  - [ ] 事件年龄检查
+  - [ ] 事件分发逻辑
 
 ### 4.3 Ghost 用户管理
-- [x] 创建 GhostUserManager
-  - [x] get_or_create_ghost
-  - [x] update_ghost_profile
-  - [x] ensure_ghost_in_room
-  - [x] remove_ghost_from_room
-  - [x] 用户映射缓存 (LRU Cache)
+- [ ] 创建 GhostUserManager
+  - [ ] get_or_create_ghost
+  - [ ] update_ghost_profile
+  - [ ] ensure_ghost_in_room
+  - [ ] remove_ghost_from_room
+  - [ ] 用户映射缓存 (LRU Cache)
 
 ### 4.4 房间操作
-- [x] create_room - 创建房间
-- [x] ensure_bot_joined_room - 确保 bot 在房间中
-- [x] invite_user - 邀请用户
-- [x] kick_user - 踢出用户
-- [x] leave_room - 离开房间
-- [x] get_room_members - 获取房间成员
+- [ ] create_room - 创建房间
+- [ ] ensure_bot_joined_room - 确保 bot 在房间中
+- [ ] invite_user - 邀请用户
+- [ ] kick_user - 踢出用户
+- [ ] leave_room - 离开房间
+- [ ] get_room_members - 获取房间成员
 
 ### 4.5 消息操作
-- [x] send_message - 发送消息
-- [x] send_message_with_reply - 发送回复
-- [x] send_message_edit - 编辑消息
-- [x] send_reaction - 发送反应
-- [x] redact_event - 删除/撤回消息
+- [ ] send_message - 发送消息
+- [ ] send_message_with_reply - 发送回复
+- [ ] send_message_edit - 编辑消息
+- [ ] send_reaction - 发送反应
+- [ ] redact_event - 删除/撤回消息
 
 ### 4.6 其他操作
-- [x] set_room_name - 设置房间名
-- [x] set_room_topic - 设置房间主题
+- [ ] set_room_name - 设置房间名
+- [ ] set_room_topic - 设置房间主题
 
 ---
 
-## Phase 5: Zulip 模块 ✅
+## Phase 5: Zulip 模块
 
 ### 5.1 Zulip 客户端核心
-- [x] 完善 zulip.rs - HTTP API 客户端
-- [x] 完善 zulip/types.rs - 类型定义
-  - [x] ZulipUser, ZulipStream, ZulipMessage
-  - [x] ZulipReaction, ZulipEvent
-  - [x] API 响应类型
-  - [x] 请求类型 (SendMessageRequest, RegisterQueueRequest)
+- [ ] 完善 zulip.rs - HTTP API 客户端
+- [ ] 完善 zulip/types.rs - 类型定义
+  - [ ] ZulipUser, ZulipStream, ZulipMessage
+  - [ ] ZulipReaction, ZulipEvent
+  - [ ] API 响应类型
+  - [ ] 请求类型 (SendMessageRequest, RegisterQueueRequest)
 
 ### 5.2 HTTP API 实现
-- [x] 认证 (Basic Auth)
-- [x] get_profile - 获取用户资料
-- [x] get_users - 获取用户列表
-- [x] get_streams - 获取 Stream 列表
-- [x] get_stream_id - 获取 Stream ID
-- [x] send_message - 发送消息 (Stream/DM)
-- [x] get_messages - 获取消息
-- [x] edit_message - 编辑消息
-- [x] delete_message - 删除消息
-- [x] add_reaction - 添加反应
-- [x] remove_reaction - 移除反应
-- [x] register_event_queue - 注册事件队列
-- [x] get_events - 获取事件
-- [x] subscribe_to_streams - 订阅 Stream
-- [x] upload_file - 上传文件
+- [ ] 认证 (Basic Auth)
+- [ ] get_profile - 获取用户资料
+- [ ] get_users - 获取用户列表
+- [ ] get_streams - 获取 Stream 列表
+- [ ] get_stream_id - 获取 Stream ID
+- [ ] send_message - 发送消息 (Stream/DM)
+- [ ] get_messages - 获取消息
+- [ ] edit_message - 编辑消息
+- [ ] delete_message - 删除消息
+- [ ] add_reaction - 添加反应
+- [ ] remove_reaction - 移除反应
+- [ ] register_event_queue - 注册事件队列
+- [ ] get_events - 获取事件
+- [ ] subscribe_to_streams - 订阅 Stream
+- [ ] upload_file - 上传文件
 
 ### 5.3 事件处理
-- [x] 创建 zulip/event_handler.rs
-- [x] ZulipEventHandler trait
-- [x] ZulipEventProcessor
-  - [x] 事件去重
-  - [x] 事件分发
+- [ ] 创建 zulip/event_handler.rs
+- [ ] ZulipEventHandler trait
+- [ ] ZulipEventProcessor
+  - [ ] 事件去重
+  - [ ] 事件分发
 
 ### 5.4 WebSocket/实时事件
-- [x] 创建 zulip/websocket.rs
-- [x] ZulipWebSocketClient (HTTP polling)
-- [x] ZulipRealTimeClient (WebSocket)
-- [x] 重连机制
-- [x] 心跳保活
+- [ ] 创建 zulip/websocket.rs
+- [ ] ZulipWebSocketClient (HTTP polling)
+- [ ] ZulipRealTimeClient (WebSocket)
+- [ ] 重连机制
+- [ ] 心跳保活
 
 ---
 
